@@ -1,6 +1,6 @@
 import React from "react";
 import Message from "./Message";
-import NewMessage from "./RoomItem";
+import NewMessage from "./NewMessage";
 import firebase from "firebase/firebase-browser";
 
 const ROOM_STYLE = {
@@ -37,7 +37,7 @@ export default class Room extends React.Component {
 
         this.setState( { messages : []});
 
-        this.fetchRooms(roomId);
+        this.fetchRoom(roomId);
     }
 
     componentDidUpdate(){
@@ -56,8 +56,7 @@ export default class Room extends React.Component {
         const newItemRef = this.fbChatRoomRef.child("messages").push();
 
         this.user = this.user || firebase.auth().currentUser;
-
-        return newItemRef.update({
+        let x = {
             writtenBy :{
                 uid : this.user.id,
                 displayName: this.user.displayName,
@@ -65,7 +64,8 @@ export default class Room extends React.Component {
             },
             time:Date.now(),
             text:message
-        })
+        };
+        return newItemRef.update(x);
     }
 
     fetchRoom(roomId) {
@@ -89,6 +89,7 @@ export default class Room extends React.Component {
         const { messages } = this.state;
         return (
             <div style={ROOM_STYLE} ref={room => this.room = room}>
+                            <h1>hello</h1>
                 <div className="list-group">
                     {messages.map(m=> <Message key={m.key} message={m} />)}
                 </div>

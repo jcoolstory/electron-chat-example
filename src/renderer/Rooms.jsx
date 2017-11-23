@@ -28,7 +28,7 @@ export default class Rooms extends React.Component {
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
-    componentDiMount() {
+    componentDidMount() {
         this.fetchRooms();
     }
 
@@ -54,7 +54,7 @@ export default class Rooms extends React.Component {
         newRoomRef.update(newRoom).then(()=>{
             this.setState({ roomName : "" });
             return this.fetchRooms().then(() => {
-                hashHistory.push("/rooms/${newRoomRef.key}");
+                hashHistory.push("/rooms/"+newRoomRef.key);
             })
         });
     }
@@ -76,7 +76,7 @@ export default class Rooms extends React.Component {
         const { rooms, roomName } = this.state;
         return (
             <div className="list-group">
-                {rooms.map(r => <RoomItem room={r} key={r.key}
+                {rooms.map(r =>  <RoomItem room={r} key={r.key}
                     selected={r.key === roomId } /> )}
                 <div className="list-group-header">
                     <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>

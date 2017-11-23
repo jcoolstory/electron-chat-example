@@ -36,10 +36,7 @@ export default class Login extends React.Component {
     }
 
     handleOnSubmit(e) {
-        
-        alert("submit");
         const { email, password } = this.state;
-        console.log("submit",e,email.length,password.length)
         const errors = [];
         let isValid = true;
         e.preventDefault();
@@ -63,7 +60,6 @@ export default class Login extends React.Component {
             localStorage.userPassword =  password;
             hashHistory.push("/rooms");
         }).catch((x)=>{
-            console.log(x)
             this.setState( { errors : ["Incorrect email or password"]});
         });
     }

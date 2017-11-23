@@ -6,11 +6,7 @@ import Signup from "./Signup";
 import Rooms from './Rooms';
 import Room from './Room';
 import firebase from "firebase/firebase-browser";
-
-// import {MyComponent} from "./MyComponent";
-
-// render( <MyComponent>hello</MyComponent>,
-//     document.getElementById("app"));
+import getConfig from "./config";
 
 const appRouting = (
     <Router history={hashHistory}>
@@ -28,15 +24,6 @@ if (!location.hash.length) {
     location.hash = "#/login";
 }
 
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBiTuhCyKzugGopXoa58oWxrKuwYxOXij8",
-    authDomain: "electron-chat-95782.firebaseapp.com",
-    databaseURL: "https://electron-chat-95782.firebaseio.com",
-    projectId: "electron-chat-95782",
-    storageBucket: "electron-chat-95782.appspot.com",
-    messagingSenderId: "812336582294"
-  }
-let x = firebase.initializeApp(config);
-console.log(x);
+
+let x = firebase.initializeApp(getConfig());
 render(appRouting, document.getElementById("app"));

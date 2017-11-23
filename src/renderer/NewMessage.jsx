@@ -17,14 +17,19 @@ export default class NewMessage extends React.Component {
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
-    handleOnSubmit(e) {
-        const { onMessagePost } = this.props;
-        if (!onMessagePost || !this.state.message.length ){
-            return;
-        }
+    handleOnChange(e) {
+        this.setState({ message : e.target.value });
+    }
 
+    handleOnSubmit(e) {
+        // const { onMessagePost } = this.props;
+        // if (!onMessagePost || !this.state.message.length ){
+        //     return;
+        // }
+
+        // onMessagePost(this.state.message);
+        // this.setState({ message : "" });
         onMessagePost(this.state.message);
-        this.setState({ message : "" });
         e.preventDefault();
     }
 

@@ -7,12 +7,14 @@ const LINK_STYLE = {
 }
 
 export default function RoomItem(props) {
+    if (! props.room)
+        return (<div>error</div>);
     const { selected } = props;
     const { description, key } = props.room;
-
+    
     return (
         <div className={selected ? "list-group-item selected" : "list-group-item"}>
-            <Link to={"/rooms/${key}"} style={LINK_STYLE}>
+            <Link to={"/rooms/"+key} style={LINK_STYLE}>
                 <div className="media-body">
                     <strong>{description}</strong>
                 </div>
