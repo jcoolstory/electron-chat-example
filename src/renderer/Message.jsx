@@ -1,5 +1,5 @@
 import React from "react";
-import Avartar from "./Avatar";
+import Avatar from "./Avatar";
 
 const MEDIA_BODY_STYLE = {
     color : "#888",

@@ -22,14 +22,14 @@ export default class NewMessage extends React.Component {
     }
 
     handleOnSubmit(e) {
-        // const { onMessagePost } = this.props;
-        // if (!onMessagePost || !this.state.message.length ){
-        //     return;
-        // }
+        const { onMessagePost } = this.props;
+        if (!onMessagePost || !this.state.message.length ){
+             return;
+        }
 
-        // onMessagePost(this.state.message);
-        // this.setState({ message : "" });
         onMessagePost(this.state.message);
+        this.setState({ message : "" });
+        
         e.preventDefault();
     }
 

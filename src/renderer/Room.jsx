@@ -58,13 +58,14 @@ export default class Room extends React.Component {
         this.user = this.user || firebase.auth().currentUser;
         let x = {
             writtenBy :{
-                uid : this.user.id,
+                uid : this.user.uid,
                 displayName: this.user.displayName,
                 photoURL : this.user.photoURL,
             },
             time:Date.now(),
             text:message
         };
+
         return newItemRef.update(x);
     }
 
