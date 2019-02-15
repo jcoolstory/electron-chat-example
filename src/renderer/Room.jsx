@@ -9,6 +9,7 @@ const ROOM_STYLE = {
 
 export default class Room extends React.Component {
   constructor(props) {
+
     super(props);
     this.state = {
       description: "",
@@ -16,49 +17,63 @@ export default class Room extends React.Component {
     };
     this.db = firebase.database();
     this.handleMessagePost = this.handleMessagePost.bind(this);
+
   }
 
   componentDidMount() {
+
     const { roomId } = this.props.params;
     // 컴포넌트 초기화 때 채팅방 상세 정보 추출하기
     this.fetchRoom(roomId);
+
   }
 
   componentWillReceiveProps(nextProps) {
+
     const { roomId } = nextProps.params;
+
     if (roomId === this.props.params.roomId) {
       // 채팅방 ID로 변환할 수 없다면 아무 것도 하지 않기
       return;
     }
+
     if (this.stream) {
       // 메시지 감시 제거하기
       this.stream.off();
     }
+
     // state 다시 초기화하기
     this.setState({ messages: [] });
     // 채팅방 상세 다시 추출하기
     this.fetchRoom(roomId);
+
   }
 
   componentDidUpdate() {
+
     setTimeout(() => {
       // 화면 아래로 스크롤하기
       this.room.parentNode.scrollTop = this.room.parentNode.scrollHeight;
     }, 0);
+
   }
 
   componentWillUnmount() {
+
     if (this.stream) {
       // 메시지 감시 제거하기
       this.stream.off();
     }
+
   }
 
 // 메시지 투고 처리
   handleMessagePost(message) {
+
     const newItemRef = this.fbChatRoomRef.child("messages").push();
     // Firebase에 로그인하고 있는 사용자를 투고 사용자로 사용하기
     this.user = this.user || firebase.auth().currentUser;
+
     return newItemRef.update({
       writtenBy: {
         uid: this.user.uid,
@@ -68,9 +83,11 @@ export default class Room extends React.Component {
       time: Date.now(),
       text: message,
     });
+
   }
 
   fetchRoom(roomId) {
+
     // Firebase 데이터베이스에서 채팅방 상세 데이터 참조 추출하기
     this.fbChatRoomRef = this.db.ref("/chatrooms/" + roomId);
     this.fbChatRoomRef.once("value").then(snapshot => {
@@ -78,6 +95,7 @@ export default class Room extends React.Component {
       this.setState({ description });
       window.document.title = description;
     });
+
     this.stream = this.fbChatRoomRef.child("messages").limitToLast(10);
     // 채팅방의 메시지 추가 감시하기
     this.stream.on("child_added", item => {
@@ -89,6 +107,7 @@ export default class Room extends React.Component {
   }
 
   render() {
+
     const { messages } = this.state;
     return (
       <div style={ROOM_STYLE} ref={room => this.room = room}>
@@ -98,5 +117,6 @@ export default class Room extends React.Component {
         <NewMessage onMessagePost={this.handleMessagePost} />
       </div>
     );
+    
   }
 }

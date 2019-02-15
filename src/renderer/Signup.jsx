@@ -13,8 +13,10 @@ const CANCEL_BUTTON_STYLE = {
 };
 
 export default class Signup extends React.Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
       email: "",
       password: "",
@@ -22,11 +24,13 @@ export default class Signup extends React.Component {
       photoURL: "",
       errors: []
     };
+
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
     this.handleOnChangeName = this.handleOnChangeName.bind(this);
     this.handleOnChangePhotoURL = this.handleOnChangePhotoURL.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
+
   }
 
   handleOnChangeEmail(e) {
@@ -47,27 +51,35 @@ export default class Signup extends React.Component {
 
   // 가입 처리
   handleOnSubmit(e) {
+
     const { email, password, name, photoURL } = this.state;
     const errors = [];
+
     let isValid = true;
+
     e.preventDefault();
+
     if (!email.length) {
       isValid = false;
       errors.push("Email address cann't be blank.");
     }
+
     if (!password.length) {
       isValid = false;
       errors.push("Password cann't be blank.");
     }
+
     if (!name.length) {
       isValid = false;
       errors.push("Name cann't be blank.");
     }
+
     if (!isValid) {
       // 필수 입력 유효성 검사를 통과하지 못하면 오류 출력하기
       this.setState({ errors });
       return;
     }
+    
     // Firebase 신규 계정 생성 처리
     firebase.auth().createUserWithEmailAndPassword(email, password).then(newUser => {
       // 사용자 정보 변경하기

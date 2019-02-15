@@ -7,15 +7,9 @@ import Rooms from "./Rooms";
 import Room from "./Room";
 
 import firebase from "firebase/firebase-browser";
+import getConfig from "./config";
 
-// Firebase 초기화
-const config = {
-  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  authDomain: "electron-chat-yyyyyy.firebaseapp.com",
-  databaseURL: "https://electron-chat-yyyyyy.firebaseio.com",
-  storageBucket: "electron-chat-yyyyyy.appspot.com",
-};
-firebase.initializeApp(config);
+firebase.initializeApp(getConfig());
 
 // Routing 정의
 const appRouting = (

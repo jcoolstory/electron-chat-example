@@ -1,6 +1,7 @@
 import React from "react";
 
 export class MyComponent extends React.Component{
+
     constructor(props) {
         super(props);
 
@@ -13,12 +14,15 @@ export class MyComponent extends React.Component{
     }
 
     handleOnClick() {
+
         this.setState({
             clickCount : this.state.clickCount +1
         });
+
     }
 
     render() {
+
         const { clickCount } = this.state;
 
         return (
@@ -28,5 +32,6 @@ export class MyComponent extends React.Component{
                 <button onClick={this.handleOnClick}>click me</button>
             </div>
         )
+        
     }
 }

@@ -16,15 +16,19 @@ const SIGNUP_LINK_STYLE = {
 export default class Login extends React.Component {
 
   constructor(props) {
+
     super(props);
+
     this.state = {
       email: localStorage.userEmail || "",
       password: localStorage.userPassword || "",
       errors: [],
     };
+
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
+
   }
 
   handleOnChangeEmail(e) {
@@ -37,22 +41,32 @@ export default class Login extends React.Component {
 
   // 로그인 처리
   handleOnSubmit(e) {
+
     const { email, password } = this.state;
     const errors = [];
     let isValid = true;
+    
     e.preventDefault();
+
     if (!email.length) {
+
       isValid = false;
       errors.push("Email can't be blank.");
+    
     }
+
     if (!password.length) {
+
       isValid = false;
       errors.push("Password can't be blank.");
+    
     }
     if (!isValid) {
+  
       // 필수 입력 유효성 검사를 통과하지 못하면 오류 출력하기
       this.setState({ errors });
       return;
+   
     }
     // Firebase 로그인 처리
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {

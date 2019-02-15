@@ -41,16 +41,21 @@ export default class Rooms extends React.Component {
 
   // 새 채팅방 만들기 처리
   handleOnSubmit(e) {
+
     const { roomName } = this.state;
     e.preventDefault();
+    
     if (!roomName.length) {
       return;
     }
+    
     // Firebase 데이터베이스에 새로운 채팅방 데이터 만들기
     const newRoomRef = this.db.ref("/chatrooms").push();
+
     const newRoom = {
       description: roomName
     };
+
     // 생성한 채팅방의 description 변경하기
     newRoomRef.update(newRoom).then(() => {
       // 상태를 다시 초기화하기
@@ -61,10 +66,12 @@ export default class Rooms extends React.Component {
         hashHistory.push(`/rooms/${newRoomRef.key}`);
       });
     });
+
   }
 
   // 채팅방 목록 추출 처리
   fetchRooms() {
+
     // Firebase 데이터베이스에서 채팅방 20개 가져오기
     return this.db.ref("/chatrooms").limitToLast(20).once("value").then(snapshot => {
       const rooms = [];
@@ -74,11 +81,13 @@ export default class Rooms extends React.Component {
       });
       // 추출한 객체 배열을 컴포넌트의 state에 설정하기
       this.setState({ rooms });
+
     });
   }
 
   // 왼쪽 패널(채팅방 목록) 렌더링 처리
   renderRoomList() {
+
     const { roomId } = this.props.params;
     const { rooms, roomName } = this.state;
     return (
@@ -104,6 +113,7 @@ export default class Rooms extends React.Component {
 
   // 오른쪽 패널(채팅방 상세) 렌더링 처리
   renderRoom() {
+
     if (this.props.children) {
       return this.props.children;
     } else {
@@ -118,14 +128,17 @@ export default class Rooms extends React.Component {
         </div>
       );
     }
+
   }
 
   render() {
+
     return (
       <div className="pane-group">
         <div className="pane-sm sidebar">{this.renderRoomList()}</div>
         <div className="pane">{this.renderRoom()}</div>
       </div>
     );
+    
   }
 }

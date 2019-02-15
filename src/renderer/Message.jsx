@@ -16,9 +16,12 @@ const TEXT_STYLE = {
 };
 
 export default function Message(props) {
+
   const { text, time, writtenBy } = props.message;
   const localeString = new Date(time).toLocaleString();
+
   return (
+
     <div className="list-group-item">
       <div className="media-object pull-left">
         <Avatar user={writtenBy} />
@@ -31,5 +34,6 @@ export default function Message(props) {
         <p style={TEXT_STYLE}>{text}</p>
       </div>
     </div>
+    
   );
 }

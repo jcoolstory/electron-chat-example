@@ -9,11 +9,15 @@ const BUTTON_STYLE = {
 };
 
 export default class NewMessage extends React.Component {
+  
   constructor(props) {
     super(props);
+
     this.state = { message: "" };
+
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
+
   }
 
   handleOnChange(e) {
@@ -21,11 +25,15 @@ export default class NewMessage extends React.Component {
   }
 
   handleOnSubmit(e) {
+
     const { onMessagePost } = this.props;
+    
     if (!onMessagePost || !this.state.message.length) {
       return;
     }
+    
     onMessagePost(this.state.message);
+    
     this.setState({ message: "" });
     e.preventDefault();
   }

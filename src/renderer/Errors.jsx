@@ -9,10 +9,13 @@ const ERRORS_STYLE = {
 };
 
 export default function Errors(props) {
+
   const { errorMessages } = props;
+  
   if (!errorMessages || !errorMessages.length) {
     return null;
   }
+  
   return (
     <div style={ERRORS_STYLE}>
       {errorMessages.map(e => <div key={e}>{e}</div> )}
